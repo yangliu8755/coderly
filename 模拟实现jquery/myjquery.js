@@ -319,7 +319,7 @@ jQuery.prototype.myAnimate = function (json, callback) {
       }
       return obj;
   }
-     jQuery.prototype.init.prototype=jQuery.prototype;   //  立即执行 函数 预编译 完毕后 执行 时提前改变  prototyped  的 值  
+    jQuery.prototype.init.prototype=jQuery.prototype;   //  立即执行 函数 预编译 完毕后 执行 时提前改变  prototyped  的 值  
     window.$=window.jQuery=jQuery;
 
 })()
