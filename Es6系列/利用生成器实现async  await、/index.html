@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         let pro =new Promise((resolve,reject)=>{
+   	  	       setTimeout(()=>{
+                   resolve('延迟')
+   	  	       },3000)
+   	  })
+
+   	  function *gen(){ 
+   	  	    let a = yield 1;  // 同步执行
+   	  	      console.log(a);
+   	  	    let b = yield 2;
+   	  	      console.log(b);
+   	  	    let status  = yield pro; //  等待promise  resolve() 执行后触发 then 中注册后的 函数后进行 下面代码的 执行。
+   	  	      console.log(status);
+   	  	    let c=yield 4;
+   	  	    console.log(4);
+
+   	  }
+
+
+      
+
+   	  //  yield 输出 非promime 值时 同步执行代码
+   	  //  yield 输出 promise对象时 则 要等待 该promise对象 resolve 完毕后
+   	  //  从而触发 then 注册的回调函数 then 函数中 迭代 下一个 要输出的对象。这样 就实现了 同步执行 异步等待 即 async await
+   	  // 的功能
+
+      function cancle(gentorFun){
+      	    let gen=gentorFun();
+      	    let result=gen.next();
+            handle();
+      	     function handle(){
+      	     	 if(result.done){
+      	     	 	 return ;
+      	     	 }
+      	     	 if(typeof result.value.then === 'function'){
+      	    	    result.value.then((res)=>{
+      	    	    	 result = gen.next(res);
+      	    	    	 handle();   
+      	    	  })
+      	         }else{
+      	    	    result=gen.next(result.value);
+      	    	    handle();
+      	         }
+      	       
+      	     }    
+      }
+
+
+
+      // //  async  await 是上述代码的语法糖
+
+      cancle(gen);
+        
+    </script>
+</body>
+</html>
