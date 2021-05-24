@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //  链表的特点
+        //  1 存储空间不连续
+        //  2 多开销一个 引用空间 浪费空间
+
+        //  链表的优点
+        //  1 存储空间不连续 不需要担心 空间碎片的问题
+        //  2 添加和删除较容易
+        //  缺点
+        //  1 多开销一个 空间 浪费存储空间
+        function Node(value){
+            this.value=value;
+            this.next=null;
+             
+        }
+        let node1= new Node(1);
+        let node2= new Node(2);
+        let node3= new Node(3);
+        node1.next=node2;
+        node2.next=node3;
+        node3.next=null;
+
+        
+     </script>
+</body>
+</html>

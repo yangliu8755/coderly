@@ -53,6 +53,7 @@ jQuery.prototype.eq=function(num){
        
 
 
+
 }
 
     jQuery.prototype.css=function(obj){
@@ -125,6 +126,7 @@ jQuery.prototype.eq=function(num){
          }
      this[0][queueName]==undefined ? this[0][queueName]=[func]:this[0][queueName].push(func);
     return this;
+    
  }
 
 

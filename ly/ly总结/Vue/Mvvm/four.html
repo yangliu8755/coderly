@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 使用 proxy 实现 mvvm 数据联动 vue 3.0 使用它 实现
+    
+    function isObj(item){
+        return typeof item === 'object';
+
+    }
+    function proxyFn(){
+       return new Proxy(){
+         
+       }
+    }
+    function Observe(obj){
+       Object.keys(obj).forEach((item,index)=>{
+           if(isObj(obj[item])){
+              Observe(obj[item])
+
+           }else{
+              
+           }
+
+       })
+       
+      
+    }
+
+  
+  </script>
+</body>
+</html>

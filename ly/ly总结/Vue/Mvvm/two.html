@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type = 'text'>
+     <script>
+         let model = {
+              name:'ly',
+              hobit:{
+                 one:'篮球'
+              },
+              arr:[1,2]
+         }
+         function updata(newVal){
+           let input =  document.getElementsByTagName('input')[0];
+           input.value = newVal;
+
+
+         }
+
+         function ObserveData(obj,prop,value){
+              Object.defineProperty(obj,prop,{
+                   get(){
+                    return value 
+                   },
+                   set(newValue){
+                        value = newValue;
+                        updata(newValue);
+                        
+                   }
+              })
+
+         }
+         //  将对象中的 原始值 和 引用值 都 进行监听 包括 对象和数组
+         function Observe(model){
+             Object.keys(model).forEach((item)=>{
+                  if(typeof model[item] === 'object'){
+                       Observe(model[item])  // 递归进行 监听 到所有的数据
+                  }else{
+                    
+                    ObserveData(model,item,model[item])
+                      
+                  }
+
+             })
+         }
+         Observe(model)
+
+        // 问题  已有数组的下标可以 监听到 数组中 么有的 下标由于还么有 监听 所以 检测不到 变化
+        // 数组中的 push pop  shift unshift 等 方法 由于 源码 设计时 么有和 Object.defineProperty 产生 关联 所以 检测不到 
+        // 页面三 将进行 重写 数组 方法 实现 关联
+
+        
+     
+     </script>
+</body>
+</html>

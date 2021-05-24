@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type = 'text'>
+     <script>
+         let model = {
+              name:'ly'
+         }
+         function updata(newVal){
+           let input =  document.getElementsByTagName('input')[0];
+           input.value = newVal;
+
+
+         }
+         
+         function Observe(obj){
+     
+              Object.defineProperty(obj,'name',{
+                   get(){
+                      return model.name
+
+                   },
+                   set(newVal){
+                      model.name = newVal;
+                      updata(newVal)                      
+
+                       
+                   }
+              })
+         }
+         let obser = {};
+
+         Observe(obser)
+
+         // 第一版本使用 观察者模式 改变数据 页面 进行改变 但是 只能 检测 对象中存储的 原始值 不能 检测 引用值
+     
+     </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+     <div>
+
+     </div>
+     <script>
+          let handleArr = ['push','pop','shift','unshift'];
+          let arrProtoObj = Array.prototype;
+          let arr = [1,2,3]
+          let divDom = document.getElementsByTagName('div')[0];
+         // 
+         // 对对象的 深度检测  数组 改变索引也会 引起 数据联动
+          function ObserveData(obj,prop,value){
+              Object.defineProperty(obj,prop,{
+                   get(){
+                    return value 
+                   },
+                   set(newValue){
+                        value = newValue;
+                        updata(arr)
+                        
+                   }
+              })
+
+         }
+     
+        function updata(arr){
+            console.log(1);
+            for(let i = 0; i < arr.length ; i++){
+                let dom = document.createElement('div');
+                dom.innerHTML = arr[i];
+                divDom.appendChild(dom);
+                  
+            }
+        }
+       
+         function Observe(model){
+             Object.keys(model).forEach((item)=>{
+                  if(typeof model[item] === 'object'){
+                       Observe(model[item])  // 递归进行 监听 到所有的数据
+                  }else{
+                    
+                    ObserveData(model,item,model[item])
+                      
+                  }
+
+             })
+         }
+         
+        
+        // 模拟实现 MVVM 的 vue 2.0 的原理
+        let obj = {}
+         handleArr.forEach((item)=>{
+            obj[item] = Array.prototype[item];
+             Object.defineProperty(Array.prototype,item,{
+                    value:(function(){
+                        return function(){
+                            let result = obj[item].apply(arr,arguments);
+                             updata(arr);
+                            return result
+                             
+                        }
+
+                    }())
+                  }
+             )
+
+         })
+          updata(arr);
+     </script>
+    
+</body>
+</html>
